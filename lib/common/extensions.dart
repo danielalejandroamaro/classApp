@@ -4,9 +4,9 @@ extension StringX on String {
   Uri toUri({Map<String, dynamic>? qParams}) {
     var uri = Uri.parse(this);
     if (qParams == null) {
-      return uri.replace(queryParameters: qParams);
+      return uri;
     }
-    return uri;
+    return uri.replace(queryParameters: qParams);
   }
 
   String get toShortString => split('.').last.toLowerCase();

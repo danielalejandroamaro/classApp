@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:lab/services/shared_preferences_service.dart';
 import 'package:lab/views/login.dart';
 
-import 'home_page.dart';
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferencesService().initialize();
   runApp(const MyApp());
 }
+
+// void main() {
+//   runApp(const MyApp());
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -28,7 +33,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: const LoginView(),
+      home: const LoginView(
+        autologin: true,
+      ),
     );
   }
 }

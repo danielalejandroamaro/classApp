@@ -15,22 +15,28 @@ class SharedPreferencesService {
   }
 
   SharedPreferencesService._internal();
+
+  Future initialize() async => _prefs = await SharedPreferences.getInstance();
+
   /// Singleton boilerplate
 
   late SharedPreferences _prefs;
   SharedPreferences get prefs => _prefs;
 
-  Future initialize() async => _prefs = await SharedPreferences.getInstance();
 
   String getToken() {
-    var _token = prefs.getString(SharedPreferencesKey.token.name.toShortString);
-    if(_token == null) {
+    var token = prefs.getString(SharedPreferencesKey.token.name.toShortString);
+    if(token == null) {
       throw Exception('ESTA TALLA NOTHING DOING');
     }
-    return _token!;   /// EL "!" NO ES NECESARIO POR EL IF DE ARRIBA, PERO ES LA FORMA COMO SE ASEGURA KE ESA VARIABLE TIENE VALOR
+    return token!;   /// EL "!" NO ES NECESARIO POR EL IF DE ARRIBA, PERO ES LA FORMA COMO SE ASEGURA KE ESA VARIABLE TIENE VALOR
   }
 
   setToken(String token) {
     prefs.setString(SharedPreferencesKey.token.name.toShortString, token);
+  }
+
+  void removeToken() {
+    prefs.remove(SharedPreferencesKey.token.name.toShortString);
   }
 }

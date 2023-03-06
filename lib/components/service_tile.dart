@@ -6,7 +6,7 @@ class ServiceTitle extends StatelessWidget {
   final String? text;
   final bool noNavigate;
 
-  const ServiceTitle({required this.price, this.text, this.noNavigate = false});
+  const ServiceTitle({super.key, required this.price, this.text, this.noNavigate = false});
   // const ServiceTitle({
   //   Key? key, required this.price,
   // }) : super(key: key);
@@ -30,7 +30,7 @@ class ServiceTitle extends StatelessWidget {
           onTap: noNavigate ? null : () => _navigateToDetails(context, price, text),
           child: Row(
             children: [
-              Expanded(flex: 3, child: Container(color: Colors.blueGrey,child: Text('holi'))),
+              Expanded(flex: 3, child: Container(color: Colors.blueGrey,child: const Text('holi'))),
               Expanded(flex: 1, child: Container(color: Colors.green,child: Center(child: Text('$price')))),
             ],
           ),

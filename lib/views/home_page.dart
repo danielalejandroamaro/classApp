@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lab/services/http_service.dart';
+import 'package:lab/views/login.dart';
 
-import 'components/service_tile.dart';
+import '../components/service_tile.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -22,6 +24,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final HttpService _httpService = HttpService();
+
+  void logout(BuildContext context) {
+    _httpService.logout();
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const LoginView()));
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -37,6 +46,30 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+          child: ListView(
+        // Important: Remove any padding from the ListView.
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Text('Drawer Header'),
+          ),
+          ListTile(
+            title: const Text('Item 1'),
+            onTap: () {
+              // Update the state of the app.
+              // ...
+            },
+          ),
+          ListTile(
+            title: const Text('logout'),
+            onTap: () => logout(context),
+          ),
+        ],
+      )),
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -58,11 +91,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
-          children: <Widget>[
-            ServiceTitle(price: 20,),
-            ServiceTitle(price: 30,),
-            ServiceTitle(price: 40,),
-            ServiceTitle(price: 50,),
+          children: const <Widget>[
+            ServiceTitle(
+              price: 20,
+            ),
+            ServiceTitle(
+              price: 30,
+            ),
           ],
         ),
       ),
